@@ -1,6 +1,7 @@
 @php
     // Define the variable if not already set
     $selectedDepartmentId = $selectedDepartmentId ?? null;
+    
 @endphp
 
 <!DOCTYPE html>
@@ -165,6 +166,7 @@
                                         <form method="POST" action="{{ route('appointment.store') }}" style="display:inline;">
                                             @csrf
                                             <input type="hidden" name="doctor_id" value="{{ $doctor->id }}">
+                                            <input type="hidden" name="patient_id" value="{{ Auth::user()->patient->id  }}">
                                             <input type="hidden" name="shift_id" value="{{ $shift->id }}">
                                             <input type="hidden" name="date" value="{{ $shift->date }}">
                                             <input type="hidden" name="start_time" value="{{ $shift->start_time }}">

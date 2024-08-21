@@ -47,11 +47,13 @@
                     <h2 class="text-3xl font-bold text-purple-700 dark:text-purple-400 mb-6 text-center">Your Appointments</h2>
                     <ul class="space-y-6">
                         @foreach ($appointments as $appointment)
-                            @if($appointment->patient && $appointment->patient->user)
+                            {{-- @if($appointment->patient && $appointment->patient->user) --}}
+
+                          
                                 <li class="p-6 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:bg-gray-700 rounded-lg shadow-md border border-gray-200 dark:border-gray-600">
                                     <div class="flex justify-between items-center">
                                         <div>
-                                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Patient: {{ $appointment->patient->user->name }}</h3>
+                                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Patient: {{ $appointment->patient->user->name}}</h3>
                                             {{-- <p class="text-sm text-gray-600 dark:text-gray-300">Phone: {{ $appointment->patient->user->phone }}</p> --}}
                                             <p class="text-sm text-gray-600 dark:text-gray-300">Date: {{ $appointment->date }}</p>
                                             <p class="text-sm text-gray-600 dark:text-gray-300">Start Time: {{ $appointment->start_time }}</p>
@@ -62,11 +64,12 @@
                                         </div>
                                     </div>
                                 </li>
-                            @else
-                                <li class="p-6 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:bg-gray-700 rounded-lg shadow-md border border-gray-200 dark:border-gray-600">
+                            {{-- @else --}}
+                           
+                                {{-- <li class="p-6 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:bg-gray-700 rounded-lg shadow-md border border-gray-200 dark:border-gray-600">
                                     <span class="text-lg font-semibold text-gray-900 dark:text-gray-200">Patient information not available</span>
                                 </li>
-                            @endif
+                            @endif --}}
                         @endforeach
                     </ul>
                 </div>

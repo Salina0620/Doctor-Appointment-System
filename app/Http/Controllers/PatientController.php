@@ -18,7 +18,8 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::where('patient_id', Auth::id())->get();
+       
+        $appointments = Appointment::where('patient_id', Auth::user()->patient->id)->get();
 
         return view('patient.dashboard', compact('appointments'));
     }
@@ -58,8 +59,9 @@ class PatientController extends Controller
 
     public function dashboard()
     {
+       
         // Fetch appointments for the logged-in patient
-        $patientId = Auth::id(); // Get the logged-in patient's ID
+        $patientId = Auth::user()->patient->id; // Get the logged-in patient's ID
         $appointments = Appointment::where('patient_id', $patientId)
                                     ->with('doctor') // Eager load doctor data
                                     ->get();
