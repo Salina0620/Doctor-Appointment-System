@@ -6,6 +6,7 @@ use App\Models\Appointment;
 use App\Models\Department;
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\User;
 use App\Models\Shift;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
@@ -34,10 +35,9 @@ class AppointmentController extends Controller
 
     public function dashboard()
     {
-        $appointments = Appointment::with('patient.user') // Eager-load the patient and user relationship
-            ->where('doctor_id', Auth::id())
-            ->get();
-
+        $appointments = Appointment::with('patient')->where('doctor_id', Auth::user()->doctor->id)->get();
+        
+   
         return view('doctor.dashboard', compact('appointments'));
     }
 
@@ -108,11 +108,14 @@ class AppointmentController extends Controller
     {
         $request->validate([
             'doctor_id' => 'required|exists:doctors,id',
+            'patient_id' => 'required|exists:patients,id',
             'shift_id' => 'required|exists:shifts,id',
             'date' => 'required|date',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
         ]);
+
+      
         
   // Retrieve the shift and doctor
   $shift = Shift::findOrFail($request->shift_id);
@@ -143,15 +146,30 @@ class AppointmentController extends Controller
   // Store the appointment in the database
   $appointment = Appointment::create([
       'doctor_id' => $request->doctor_id,
-      'patient_id' => Auth::id(),
+      'patient_id' => $request->patient_id,
       'shift_id' => $request->shift_id,
       'date' => $request->date,
       'start_time' => $request->start_time,
       'end_time' => $request->end_time,
   ]);
 
-  // Notify doctor and patient
-  Notification::send([$doctor->user, Auth::user()], new AppointmentBooked($appointment));
+
+   // Eager load relationships to ensure no null values
+   $appointment->load('doctor.user', 'patient.user');
+
+//    // Notify doctor and patient
+    // $doctorUser = $appointment->doctor->user;
+    // $patientUser = $appointment->patient->user;
+
+    // if ($doctorUser) {
+    //     Notification::send($doctorUser, new AppointmentBooked($appointment));
+    // }
+
+    // if ($patientUser) {
+    //     Notification::send($patientUser, new AppointmentBooked($appointment));
+    // }
+
+
 
   // Redirect with success message
   if (Auth::user()->role === 'patient') {

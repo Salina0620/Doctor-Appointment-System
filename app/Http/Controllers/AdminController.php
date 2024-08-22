@@ -17,7 +17,7 @@ class AdminController extends Controller
         $total_doctor = Doctor::count();
         $total_patient = Patient::count();
         $total_appointment = Appointment::count();
-
+// dd(10);
         return view('admin.dashboard', compact('total_doctor', 'total_patient', 'total_appointment'));
     }
 

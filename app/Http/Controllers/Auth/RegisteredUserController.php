@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'in:patient,doctor']
+            'role' => ['required', 'in:patient,doctor,admin']
         ]);
 
         $user = User::create([
@@ -54,6 +54,9 @@ class RegisteredUserController extends Controller
         }
         If($request-> role === 'doctor'){
             return redirect()->route('doctor.create');
+        }
+        If($request-> role === 'admin'){
+            return redirect()->route('admin.dashboard');
         }
 
 

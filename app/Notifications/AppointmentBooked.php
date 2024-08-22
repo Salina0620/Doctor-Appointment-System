@@ -61,9 +61,10 @@ class AppointmentBooked extends Notification implements ShouldQueue
             ->line('Patient: ' . $this->appointment->patient->user->name)
             ->line('Doctor: ' . $this->appointment->doctor->user->name)
             ->line('Date: ' . $this->appointment->date)
-            ->line('Time: ' . $this->appointment->time)
-            ->action('View Appointment', url('/'))
-            ->line('Thank you for using our application!');
+            ->line('Start Time: ' . $this->appointment->start_time)
+            ->line('End Time: ' . $this->appointment->end_time)            ->action('View Appointment', url('/appointments/' . $this->appointment->id))
+            ->action('View Appointment', url('/appointments/' . $this->appointment->id))
+            ->line('Please be on time as per the schedule. Thank You!');
     }
 
     /**

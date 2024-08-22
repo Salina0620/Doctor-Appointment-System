@@ -67,6 +67,8 @@ class DoctorController extends Controller
             ->where('doctor_id', Auth::id())
             ->get();
 
+            // dd($appointments);
+
         return view('doctor.dashboard', compact('appointments'));
     }
 
