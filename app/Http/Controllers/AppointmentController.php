@@ -81,7 +81,7 @@ class AppointmentController extends Controller
     }
 
     /**
-     * Show available shifts for a specific doctor.
+     * Show available shifts for a specific doctor
      */
     public function showDoctorShifts($doctorId)
     {

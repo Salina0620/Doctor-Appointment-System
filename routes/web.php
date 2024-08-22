@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\DoctorController;
@@ -83,6 +84,8 @@ Route::resource('doctor', DoctorController::class);
 // Shift Routes
 Route::resource('shift', ShiftController::class);
 
-
+//admin routes
+// Route::resource('admin', AdminController::class);
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
 require __DIR__ . '/auth.php';

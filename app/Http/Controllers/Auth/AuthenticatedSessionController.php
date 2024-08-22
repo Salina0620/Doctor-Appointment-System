@@ -41,6 +41,8 @@ class AuthenticatedSessionController extends Controller
             return redirect()->route('doctor.dashboard');
         case 'patient':
             return redirect()->route('patient.dashboard');
+        case 'admin':
+            return redirect()->route('admin.dashboard');
         default:
             return redirect()->intended('dashboard');
     }
